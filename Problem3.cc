@@ -35,6 +35,7 @@ int main(void) {
 	int price = 0;
 	std::string item1 = "", item2 = "", item3 = "";
 	std::vector<int> indeces;
+	bool special1[3] = {0,0,0}, special2[3] = {0,0,0}, special3[3] = {0,0,0};
 
 
 
@@ -80,20 +81,20 @@ int main(void) {
 
 	std::string items[14][3] = {
 
-		{"e1","Veggie Burger"},
-		{"e2","Falafel Wrap",},
-		{"e3","Salami Sandwich"},
-		{"s1","French Fries"},
-		{"s2","Hummus with Pita Chips"},
-		{"s3","Celery and Carrots"},
-		{"b1","Tap Water"},
-		{"b2","Sparkling Water"},
-		{"b3","Domestic Beer"},
-		{"b4","Imported Beer"},
-		{"b5","Red Wine"},
-		{"b6","White Wine"},
-		{"b7","Coffee"},
-		{"b8","Tea"}};
+		{"e1","Veggie Burger"}, //0
+		{"e2","Falafel Wrap",}, //1
+		{"e3","Salami Sandwich"}, //2
+		{"s1","French Fries"}, //3
+		{"s2","Hummus with Pita Chips"}, //4
+		{"s3","Celery and Carrots"}, //5
+		{"b1","Tap Water"}, //6
+		{"b2","Sparkling Water"}, //7
+		{"b3","Domestic Beer"}, //8
+		{"b4","Imported Beer"}, //9
+		{"b5","Red Wine"}, //10
+		{"b6","White Wine"}, //11
+		{"b7","Coffee"}, //12
+		{"b8","Tea"}}; //13
 	
 	
 	for(int j=0; j<3; j++){
@@ -103,6 +104,24 @@ int main(void) {
 				founditem=true;
 				price += cost(items[i][0]);
 				indeces.push_back(i);
+
+				if(i==0){special1[0] = 1;}
+				else if(i==1){special2[0] = 1;}
+				else if(i==2){special3[0] = 1;}
+				else if(i==3){
+					special1[1] = 1;
+					special3[1] = 1;}
+				else if(i==4){
+					special2[1] = 1;
+					special3[1] = 1;}
+				else if(i==5){special3[1] = 1;}
+				else if(i==6 || i==7){special1[2] = 1;}
+				else if(i==8 || i==9 || i ==10 || i==11){special3[2] = 1;}
+				else if(i==12 || i==13){
+					special1[2] = 1;
+					special2[2] = 1;}
+
+				
 				}
 			}
 		
@@ -120,10 +139,14 @@ int main(void) {
 		}
 	}
 
-
+	if(special1[0] && special1[1] && special1[2]){price = 8;}
+	else if(special2[0] && special2[1] && special2[2]){price = 7;}
+	else if(special3[0] && special3[1] && special3[2]){price = 13;}
 
 
 	std::cout << "You ordered a " << item1 << " with " << item2 << " and with " << item3 << ". Your cost is $" << price <<"." << std::endl;
+
+
 	return 0;
 
 
